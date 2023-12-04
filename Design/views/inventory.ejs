@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+  <h1>User's Inventory</h1>
+  <% if (inventory && inventory.length> 0) { %>
+    <ul>
+      <% inventory.forEach(item=> { %>
+        <li>
+          <%= item.ingredient_name %> - <%= item.quantity %>
+              <%= item.unit %>
+                <a href="/inventory/<%= userId %>/<%= item.id %>/edit">
+                  <button>Edit</button>
+                </a>
+                <form method="post" action="/inventory/<%= userId %>/<%= item.id %>/delete" style="display:inline;">
+                  <button type="submit">Delete</button>
+                </form>
+        </li>
+        <% }); %>
+    </ul>
+    <% } else { %>
+      <p>No items in the inventory.</p>
+      <% } %>
+        <a href="/inventory/<%= userId %>/add">
+          <button>Add Item</button>
+        </a>
+</body>
+
+</html>

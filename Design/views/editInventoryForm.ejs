@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Inventory Item</title>
+</head>
+
+<body>
+    <h1>Edit Inventory Item</h1>
+
+    <form method="post" action="/inventory/<%= userId %>/<%= itemId %>/edit">
+
+        <input type="hidden" name="_method" value="put">
+
+        <input type="hidden" name="userId" value="<%= userId %>">
+
+        <input type="hidden" name="itemId" value="<%= itemId %>">
+
+        <label for="ingredientName">Ingredient Name:</label>
+        <input type="text" id="ingredientName" name="ingredient_name" value="<%= item.ingredient_name %>" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="<%= item.quantity %>" required>
+
+        <label for="unit">Unit:</label>
+        <input type="text" id="unit" name="unit" value="<%= item.unit %>">
+
+        <button type="submit">Update Item</button>
+
+    </form>
+</body>
+
+</html>
