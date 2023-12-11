@@ -10,11 +10,11 @@
 <body>
   <h1>Add Inventory Item</h1>
 
-  <form method="post" action="/inventory/<%= userId %>/add">
+  <form method="post" action="/inventory/add">
 
     <input type="hidden" name="userId" value="<%= userId %>">
 
-    <label for="ingredientName">Ingredient Name:</label>
+    <label for="ingredientName">Ingredient Name (lowercase):</label>
     <input type="text" id="ingredientName" name="ingredient_name" required>
 
     <label for="quantity">Quantity:</label>

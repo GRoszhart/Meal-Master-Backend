@@ -10,7 +10,7 @@
 <body>
     <h1>Edit Inventory Item</h1>
 
-    <form method="post" action="/inventory/<%= userId %>/<%= itemId %>/edit">
+    <form method="post" action="/inventory/<%= itemId %>/edit">
 
         <input type="hidden" name="_method" value="put">
 
@@ -18,7 +18,7 @@
 
         <input type="hidden" name="itemId" value="<%= itemId %>">
 
-        <label for="ingredientName">Ingredient Name:</label>
+        <label for="ingredientName">Ingredient Name (lowercase): </label>
         <input type="text" id="ingredientName" name="ingredient_name" value="<%= item.ingredient_name %>" required>
 
         <label for="quantity">Quantity:</label>

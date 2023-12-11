@@ -2,20 +2,31 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory</title>
 </head>
 
+<nav>
+  <ul>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/recipes">Recipes</a></li>
+    <li><a href="/inventory">Inventory</a></li>
+  </ul>
+</nav>
+
 <body>
-  <h1>User's Inventory</h1>
+  <h1>My Inventory</h1>
   <% if (inventory && inventory.length> 0) { %>
     <ul>
       <% inventory.forEach(item=> { %>
         <li>
           <%= item.ingredient_name %> - <%= item.quantity %>
               <%= item.unit %>
-                <a href="/inventory/<%= userId %>/<%= item.id %>/edit">
+                <a href="/inventory/<%= item.id %>/edit">
                   <button>Edit</button>
                 </a>
-                <form method="post" action="/inventory/<%= userId %>/<%= item.id %>/delete" style="display:inline;">
+                <form method="post" action="/inventory/<%= item.id %>/delete" style="display:inline;">
                   <button type="submit">Delete</button>
                 </form>
         </li>
@@ -24,7 +35,7 @@
     <% } else { %>
       <p>No items in the inventory.</p>
       <% } %>
-        <a href="/inventory/<%= userId %>/add">
+        <a href="/inventory/add">
           <button>Add Item</button>
         </a>
 </body>
