@@ -1,12 +1,33 @@
 // Routes to do with recipes
 const express = require('express');
 const router = express.Router();
-const db = require('../database/db');
+const pgp = require('pg-promise')();
+const connectionString = process.env.DATABASE_URL;
+const db = pgp(connectionString);
 
-// Route to render the recipes page
+// Route to display recipes
 router.get('/', async (req, res) => {
+  const userId = req.session.userId;
+
+  // Filter option
+  const filterOption = req.query.filter;
+
+  // Inventory filtering options - some ingredients, all ingredients, or show all recipes
   try {
-    const recipes = await db.any('SELECT * FROM Recipe');
+    let recipes;
+    if (filterOption === 'someIngredients') {
+      recipes = await db.any(
+        'SELECT * FROM Recipe WHERE id IN (SELECT DISTINCT recipe_id FROM Ingredients WHERE ingredient_name IN (SELECT ingredient_name FROM Inventory WHERE user_id = $1))',
+        [userId]
+      );
+    } else if (filterOption === 'allIngredients') {
+      recipes = await db.any(
+        'SELECT * FROM Recipe WHERE NOT EXISTS (SELECT ingredient_name FROM Ingredients WHERE recipe_id = Recipe.id AND ingredient_name NOT IN (SELECT ingredient_name FROM Inventory WHERE user_id = $1))',
+        [userId]
+      );
+    } else {
+      recipes = await db.any('SELECT * FROM Recipe');
+    }
     res.render('recipes', { recipes });
   } catch (error) {
     console.error('Error fetching recipes:', error);

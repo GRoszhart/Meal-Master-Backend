@@ -1,12 +1,13 @@
 // Routes to do with Inventory
 const express = require('express');
 const router = express.Router();
-const db = require('../database/db');
+const pgp = require('pg-promise')();
+const connectionString = process.env.DATABASE_URL;
+const db = pgp(connectionString);
 
 // Route to view user inventory
-router.get('/:userId', async (req, res) => {
-    const userId = req.params.userId;
-
+router.get('/', async (req, res) => {
+    const userId = req.session.userId;
     try {
         const inventory = await db.any('SELECT * FROM Inventory WHERE user_id = $1', userId);
         res.render('inventory', { userId, inventory });
@@ -18,14 +19,14 @@ router.get('/:userId', async (req, res) => {
 
 
 // Route to view add item form
-router.get('/:userId/add', (req, res) => {
-    const userId = req.params.userId;
+router.get('/add', (req, res) => {
+    const userId = req.session.userId;
     res.render('addInventoryForm', { userId });
 });
 
 // Route to add inventory item
-router.post('/:userId/add', async (req, res) => {
-    const userId = req.params.userId;
+router.post('/add', async (req, res) => {
+    const userId = req.session.userId;
     const { ingredient_name, quantity, unit } = req.body;
 
     try {
@@ -34,7 +35,7 @@ router.post('/:userId/add', async (req, res) => {
             [userId, ingredient_name, quantity, unit]
         );
 
-        res.redirect('/inventory/' + userId);
+        res.redirect('/inventory');
     } catch (error) {
         console.error('Error adding item to inventory:', error);
         res.status(500).send('Internal Server Error');
@@ -43,8 +44,8 @@ router.post('/:userId/add', async (req, res) => {
 
 
 // Route to view edit item form
-router.get('/:userId/:itemId/edit', async (req, res) => {
-    const userId = req.params.userId;
+router.get('/:itemId/edit', async (req, res) => {
+    const userId = req.session.userId;
     const itemId = req.params.itemId;
     try {
         const item = await db.one('SELECT * FROM Inventory WHERE id = $1 AND user_id = $2', [itemId, userId]);
@@ -56,8 +57,8 @@ router.get('/:userId/:itemId/edit', async (req, res) => {
 });
 
 // Route to update inventory item with PUT method
-router.put('/:userId/:itemId/edit', async (req, res) => {
-    const userId = req.params.userId;
+router.put('/:itemId/edit', async (req, res) => {
+    const userId = req.session.userId;
     const itemId = req.params.itemId;
     const { ingredient_name, quantity, unit } = req.body;
 
@@ -68,7 +69,7 @@ router.put('/:userId/:itemId/edit', async (req, res) => {
         );
 
         if (updatedItem) {
-            res.redirect('/inventory/' + userId);
+            res.redirect('/inventory');
         } else {
             res.status(404).send('Item not found in inventory');
         }
@@ -79,8 +80,8 @@ router.put('/:userId/:itemId/edit', async (req, res) => {
 });
 
 // Route to update inventory item with POST method
-router.post('/:userId/:itemId/edit', async (req, res) => {
-    const userId = req.params.userId;
+router.post('/:itemId/edit', async (req, res) => {
+    const userId = req.session.userId;
     const itemId = req.params.itemId;
     const { ingredient_name, quantity, unit } = req.body;
 
@@ -91,7 +92,7 @@ router.post('/:userId/:itemId/edit', async (req, res) => {
         );
 
         if (updatedItem) {
-            res.redirect('/inventory/' + userId);
+            res.redirect('/inventory');
         } else {
             res.status(404).send('Item not found in inventory');
         }
@@ -102,8 +103,8 @@ router.post('/:userId/:itemId/edit', async (req, res) => {
 });
 
 // Route to delete inventory item
-router.post('/:userId/:itemId/delete', async (req, res) => {
-    const userId = req.params.userId;
+router.post('/:itemId/delete', async (req, res) => {
+    const userId = req.session.userId;
     const itemId = req.params.itemId;
 
     try {
@@ -113,7 +114,7 @@ router.post('/:userId/:itemId/delete', async (req, res) => {
         );
 
         if (deletedItem) {
-            res.redirect('/inventory/' + userId);
+            res.redirect('/inventory');
         } else {
             res.status(404).send('Item not found in inventory');
         }
