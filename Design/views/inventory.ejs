@@ -4,40 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
   <title>Inventory</title>
 </head>
 
-<nav>
-  <ul>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/recipes">Recipes</a></li>
-    <li><a href="/inventory">Inventory</a></li>
-  </ul>
-</nav>
+<div class="container">
+  <div class="content">
+    <header class="header">
+      <a href="/home">Meal Master</a>
+    </header>
 
-<body>
-  <h1>My Inventory</h1>
-  <% if (inventory && inventory.length> 0) { %>
-    <ul>
-      <% inventory.forEach(item=> { %>
-        <li>
-          <%= item.ingredient_name %> - <%= item.quantity %>
-              <%= item.unit %>
+    <body>
+      <h1>My Inventory</h1>
+      <% if (inventory && inventory.length> 0) { %>
+        <ul>
+          <% inventory.forEach(item=> { %>
+            <li class="inventory_item">
+              <div class="item_details">
+                <%= item.ingredient_name %> - <%= item.quantity %>
+                    <%= item.unit %>
+              </div>
+              <div class="item_actions">
                 <a href="/inventory/<%= item.id %>/edit">
-                  <button>Edit</button>
+                  <button class="button">Edit</button>
                 </a>
                 <form method="post" action="/inventory/<%= item.id %>/delete" style="display:inline;">
-                  <button type="submit">Delete</button>
+                  <button class="button" type="submit">Delete</button>
                 </form>
-        </li>
-        <% }); %>
-    </ul>
-    <% } else { %>
-      <p>No items in the inventory.</p>
-      <% } %>
-        <a href="/inventory/add">
-          <button>Add Item</button>
-        </a>
-</body>
+              </div>
+            </li>
+            <% }); %>
+        </ul>
+        <% } else { %>
+          <p>No items in the inventory.</p>
+          <% } %>
+            <a href="/inventory/add">
+              <button class="button">Add Item(s)</button>
+            </a>
+    </body>
+  </div>
+  <div class="navbar">
+    <a href="/home">Home</a>
+    <a href="/recipes">Recipes</a>
+    <a href="/inventory">Inventory</a>
+  </div>
+</div>
 
 </html>

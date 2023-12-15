@@ -4,52 +4,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
   <title>Recipes</title>
 </head>
 
-<nav>
-  <ul>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/recipes">Recipes</a></li>
-    <li><a href="/inventory">Inventory</a></li>
-  </ul>
-</nav>
+<div class="container">
+  <div class="content">
+    <header class="header">
+      <a href="/home">Meal Master</a>
+    </header>
 
-<body>
-  <h1>Recipes</h1>
 
-  <form method="get" action="/recipes">
-    <label for="inventoryFilter">Filter by Inventory:</label>
-    <select id="inventoryFilter" name="filter">
-      <option value="all">All Recipes</option>
-      <option value="someIngredients">At Least One Ingredient</option>
-      <option value="allIngredients">Has All Ingredients</option>
-    </select>
-    <button type="submit">Apply Filter</button>
-  </form>
 
-  <% if (recipes.length> 0) { %>
-    <ul>
-      <% recipes.forEach(recipe=> { %>
-        <li>
-          <h2><a href="/recipes/<%= recipe.id %>">
-              <%= recipe.name %>
-            </a></h2>
-          <p><strong>Category:</strong>
-            <%= recipe.category %>
-          </p>
-          <p><strong>Ingredients:</strong>
-            <%= recipe.ingredients %>
-          </p>
-          <p><strong>Instructions:</strong>
-            <%= recipe.instructions %>
-          </p>
-        </li>
-        <% }) %>
-    </ul>
-    <% } else { %>
-      <p>No recipes available.</p>
-      <% } %>
-</body>
+    <body>
+      <h1>Recipes</h1>
+
+      <form class="form_options" method="get" action="/recipes">
+        <label for="inventoryFilter">Filter by Inventory:</label>
+        <select id="inventoryFilter" name="filter">
+          <option value="all">All Recipes</option>
+          <option value="someIngredients">Has At Least One Ingredient</option>
+          <option value="allIngredients">Has All Ingredients</option>
+        </select>
+        <button class="button" type="submit">Apply Filter</button>
+      </form>
+
+      <% if (recipes.length> 0) { %>
+        <ul>
+          <% recipes.forEach(recipe=> { %>
+            <li style="border-bottom: 1px solid #ffe884">
+              <h1><a href="/recipes/<%= recipe.id %>">
+                  <%= recipe.name %>
+                </a></h1>
+              <p><strong>Category:</strong>
+                <%= recipe.category %>
+              </p>
+              <p><strong>Ingredients:</strong>
+                <%= recipe.ingredients %>
+              </p>
+              <p><strong>Instructions:</strong>
+                <%= recipe.instructions %>
+              </p>
+            </li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+          <p>No recipes available.</p>
+          <% } %>
+    </body>
+  </div>
+  <div class="navbar">
+    <a href="/home">Home</a>
+    <a href="/recipes">Recipes</a>
+    <a href="/inventory">Inventory</a>
+  </div>
+</div>
 
 </html>

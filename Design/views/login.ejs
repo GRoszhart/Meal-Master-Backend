@@ -4,32 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
   <title>User Login</title>
 </head>
 
-<body>
-  <h1>User Login</h1>
+<div class="container">
+  <div class="content">
+    <header class="header">
+      Meal Master
+    </header>
 
-  <form action="/authentication/login" method="post">
-    
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
+    <body>
+      <h1>User Login</h1>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+      <form class="form_options" action="/authentication/login" method="post">
 
-    <button type="submit">Login</button>
-  </form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
 
-  <p>Don't have an account? <a href="/authentication/register">Register here</a>.</p>
-  
-</body>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
 
-<% if (locals.loginSuccess) { %>
-  <p>Login successful. Redirecting to home page...</p>
-  <script>
-    setTimeout(function () {window.location.href = "/home";}, 3000);
-  </script>
-<% } %>
+        <button class="button" type="submit">Login</button>
+      </form>
+
+      <p>Don't have an account? <a href="/authentication/register">Register here</a>.</p>
+    </body>
+
+    <% if (locals.loginSuccess) { %>
+      <p>Login successful. Redirecting to home page...</p>
+      <script>
+        setTimeout(function () { window.location.href = "/home"; }, 2000);
+      </script>
+      <% } %>
+
+  </div>
+</div>
 
 </html>
