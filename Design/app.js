@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 
 // Middleware
+
 app.use(session({
     secret: '123456789',
     resave: false,
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
 // Database connection middleware
 app.use((req, res, next) => {
