@@ -1,0 +1,177 @@
+html {
+    background-color: #ffffff;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.header {
+    background-color: #58a86a;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    font-size: 48px;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    padding-bottom: 72px;
+    padding-top: 84px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffe884;
+    padding: 10px 0;
+}
+
+.navbar a {
+    color: #333;
+    text-decoration: none;
+    font-size: 24px;
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+    border-right: 1px solid #333;
+}
+
+.navbar a:last-child {
+    border-right: none;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    padding: 25px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    padding: 25px;
+}
+
+h1 a {
+    color: #333;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+h1 a:hover {
+    color: #267a3a;
+}
+
+h1 a:active {
+    color: #58a86a
+}
+
+p {
+    font-size: 18px;
+    color: #333;
+    padding: 25px;
+}
+
+p a {
+    color: #333;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+p a:hover {
+    color: #267a3a;
+}
+
+.form_options {
+    margin: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.form_options label {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.form_options select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #58a86a;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px;
+    background-color: #58a86a;
+    color: #ffffff;
+    text-decoration: underline;
+    border: none;
+    border-radius: 5px;
+    border: 2px solid #58a86a;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #267a3a;
+}
+
+.inventory_item {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    border-bottom: 1px solid #ffe884;
+    padding: 0px;
+    padding-right: 20px;
+}
+
+.item_details {
+    flex-grow: 1;
+}
+
+.item_actions {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
